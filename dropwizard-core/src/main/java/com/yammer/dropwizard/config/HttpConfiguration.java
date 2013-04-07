@@ -15,14 +15,20 @@ import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Locale;
 import java.util.Map;
 
 /**
  * An object representation of the {@code http} section of the YAML configuration file.
  */
-@SuppressWarnings("UnusedDeclaration")
 public class HttpConfiguration {
+    private static final Logger LOGGER = LoggerFactory.getLogger(HttpConfiguration.class);
+    private static final int PRIVLEDGED_PORTS = 1024;
+
     public enum ConnectorType {
         BLOCKING,
         LEGACY,
@@ -227,6 +233,9 @@ public class HttpConfiguration {
     }
 
     public void setPort(int port) {
+    	if (port < PRIVLEDGED_PORTS) {
+    		LOGGER.warn("Listending on privledged port: {}", port);
+    	}
         this.port = port;
     }
 

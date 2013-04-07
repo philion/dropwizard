@@ -19,7 +19,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = PortRangeValidator.class)
 @Documented
 public @interface PortRange {
-    int min() default 1025;
+    int min() default 1; // Updating range to allow privledged ports
 
     int max() default 65535;
 
